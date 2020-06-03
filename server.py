@@ -254,11 +254,11 @@ def spreadsheet():
         
     #else search through the directory and ensure there are no spreadsheets to avoid buildup
     else:
-        dir = "C:/Users/burnh/Desktop/Python/Personal Website/templates/"
+        dir = "/Personal Website/templates/"
         for files in os.walk(os.path.abspath(dir)):
             for file in files[2]:
                 if 'spreadsheet' in file:
-                    os.remove("C:/Users/burnh/Desktop/Python/Personal Website/templates/" + file)
+                    os.remove("/Personal Website/templates/" + file)
                 print(file)
         first_loop = False
     

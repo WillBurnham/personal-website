@@ -148,7 +148,7 @@ def get_content(state, city):
 
 #creating excel workbook
 def start_workbook():
-    return xlsxwriter.Workbook('C:/Users/burnh/Desktop/Python/Personal Website/Excel/real_estate.xlsx')
+    return xlsxwriter.Workbook('real_estate.xlsx')
 
 
 #creating a worksheet from the workbook
@@ -249,18 +249,18 @@ def spreadsheet():
     #got around this by creating a new html page every time the form submits. 
     
     #if its not the first iteration of the loop, remove the last iterations html page
-    if not first_loop:
-        os.remove("C:/Users/burnh/Desktop/Python/Personal Website/templates/spreadsheet" + str(i-1) +".html")
+    #if not first_loop:
+        #os.remove("C:/Users/burnh/Desktop/Python/Personal Website/templates/spreadsheet" + str(i-1) +".html")
         
     #else search through the directory and ensure there are no spreadsheets to avoid buildup
-    else:
-        dir = "/Personal Website/templates/"
-        for files in os.walk(os.path.abspath(dir)):
-            for file in files[2]:
-                if 'spreadsheet' in file:
-                    os.remove("/Personal Website/templates/" + file)
-                print(file)
-        first_loop = False
+    #else:
+        #dir = "/Personal Website/templates/"
+        #for files in os.walk(os.path.abspath(dir)):
+            #for file in files[2]:
+                #if 'spreadsheet' in file:
+                    #os.remove("/Personal Website/templates/" + file)
+                #print(file)
+        #first_loop = False
     
     city = request.form['city']
     state = request.form['category']
@@ -272,8 +272,8 @@ def spreadsheet():
     workbook.close()
     
     #reading the excel doc with panda's and turning it into an html page for in browser readability
-    df = pd.read_excel("C:/Users/burnh/Desktop/Python/Personal Website/Excel/real_estate.xlsx")
-    df.to_html("C:/Users/burnh/Desktop/Python/Personal Website/templates/spreadsheet" + str(i) + ".html")
+    df = pd.read_excel("real_estate.xlsx")
+    df.to_html("/templates/spreadsheet" + str(i) + ".html")
     
     #rendering the template before we increment
     template = render_template("spreadsheet" + str(i) + ".html")

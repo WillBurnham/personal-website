@@ -9,12 +9,6 @@ from bs4 import BeautifulSoup
 import xlsxwriter
 import pandas as pd
 import requests
-import os
-
-
-#using these variables to control the 
-first_loop = True
-i = 0
 
 
 #importing the Open Weather Map API key
@@ -235,32 +229,12 @@ def projects():
 #route to resume
 @app.route('/resume/') 
 def resume():
-    return redirect("/static/Will Burnham Official Resume PDF.pdf") 
+    return redirect("/static/Will Burnham Official Engineering Resume 1.pdf") 
 
 
 #route to spreadsheet
 @app.route('/spreadsheet/', methods=['POST'])
 def spreadsheet():
-    global first_loop
-    global i
-    
-    
-    #kept having weird error where the html page data would update but it would always render the prev. version
-    #got around this by creating a new html page every time the form submits. 
-    
-    #if its not the first iteration of the loop, remove the last iterations html page
-    #if not first_loop:
-        #os.remove("C:/Users/burnh/Desktop/Python/Personal Website/templates/spreadsheet" + str(i-1) +".html")
-        
-    #else search through the directory and ensure there are no spreadsheets to avoid buildup
-    #else:
-        #dir = "/Personal Website/templates/"
-        #for files in os.walk(os.path.abspath(dir)):
-            #for file in files[2]:
-                #if 'spreadsheet' in file:
-                    #os.remove("/Personal Website/templates/" + file)
-                #print(file)
-        #first_loop = False
     
     city = request.form['city']
     state = request.form['category']
@@ -273,14 +247,9 @@ def spreadsheet():
     
     #reading the excel doc with panda's and turning it into an html page for in browser readability
     df = pd.read_excel("real_estate.xlsx")
-    df.to_html("/templates/spreadsheet" + str(i) + ".html")
+    xl = df.to_html()
     
-    #rendering the template before we increment
-    template = render_template("spreadsheet" + str(i) + ".html")
-    
-    i+=1
-    
-    return template
+    return xl
 
 
 #route for data submitted through form

@@ -270,7 +270,7 @@ def handle_data():
     #input validation
     for char in word:
         if (char.isalpha() == False):
-            return render_template("projects.html", value = no_search_results)
+            return render_template("projects.html", value = no_search_results, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
             
     #constructing query and fetching results
     query = cursor.execute("SELECT Definition FROM Dictionary WHERE Expression = '%s'" % word)

@@ -136,7 +136,7 @@ def get_content(state, city):
     req = requests.get(url, headers={'User-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0'})
     content = req.content
     soup = BeautifulSoup(content, 'html.parser')
-    all_property_data = soup.find_all("div", {"class":"Box-sc-8ox7qa-0 jIGxjA"})
+    all_property_data = soup.find_all("div", {"class":"Box-sc-8ox7qa-0 jDcCbK"})
     return all_property_data
     
 

@@ -164,9 +164,9 @@
     						</form>
     					</section>
     					<ul class="alt" style="list-style-type: none;">
-    						<li>{{value}}</li>
-    						<li>{{value2}}</li>
-    						<li>{{value3}}</li>
+    						{% for data in my_list %}
+                                <li>{{data}}</li>
+                            {% endfor %}
         				</ul>	
 					</header>				
                     

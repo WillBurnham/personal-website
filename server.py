@@ -270,7 +270,9 @@ def handle_data():
     #input validation
     for char in word:
         if (char.isalpha() == False):
-            return render_template("projects.html", value = no_search_results, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
+            arr = []
+            arr.append(no_search_results)
+            return render_template("projects.html", my_list = arr, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
             
     #constructing query and fetching results
     query = cursor.execute("SELECT Definition FROM Dictionary WHERE Expression = '%s'" % word)
@@ -281,19 +283,16 @@ def handle_data():
         arr = []
         for result in results:
             arr.append(result[0])
-        if len(arr) >= 3:
-            con.close()
-            return render_template("projects.html", value = arr[0], value2 = arr[1], value3=arr[2], austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
-        if len(arr) == 2:
-            con.close()
-            return render_template("projects.html", value = arr[0], value2 = arr[1], austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
-        if len(arr) == 1:
-            con.close()
-            return render_template("projects.html", value = arr[0], austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
+        
+        con.close()
+        return render_template("projects.html", my_list = arr, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
+       
            
     else:
+        arr = []
+        arr.append(no_search_results)
         con.close()
-        return render_template("projects.html", value = no_search_results, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
+        return render_template("projects.html", my_list = arr, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
 
           
 if __name__ == "__main__":

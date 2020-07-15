@@ -10,17 +10,6 @@ import xlsxwriter
 import pandas as pd
 import requests
 
-
-#importing the Open Weather Map API key
-owm = pyowm.OWM('ecb7040454382ee36fdd354262f71db1')
-
-
-#SMTP server credentials and target addresses
-send_email = "wb.weather.app@gmail.com"
-rec_email = ["burnham.will2020@gmail.com", "nmgiacomello@gmail.com"]
-password = "2FC018z69420!"
-
-
 #creating cities to be monitored 
 dal = City('Dallas')
 hou = City('Houston')
@@ -56,6 +45,12 @@ aus_img = "/static/images/" + current_austin_weather + ".png"
 dal_img = "/static/images/" + current_dallas_weather + ".png"
 hou_img = "/static/images/" + current_houston_weather + ".png"
 
+#importing the Open Weather Map API key
+owm = pyowm.OWM('ecb7040454382ee36fdd354262f71db1')
+
+send_email = "wb.weather.app@gmail.com"
+rec_email = ["burnham.will2020@gmail.com", "nmgiacomello@gmail.com"]
+pw = "2FC018z69420!"
 
 #send email when find_bad_weather = true
 def send():
@@ -70,7 +65,7 @@ def send():
     #starting smtp server
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login(send_email, password)
+    server.login(send_email, pw)
     
     #constructing email body
     message = "It's going to rain tomorrow in "

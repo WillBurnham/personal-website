@@ -16,12 +16,10 @@ hou = City('Houston')
 aus = City('Austin')
 city_list = [dal, hou, aus]
 
-
 #initializing current weather status
 current_austin_weather = ""
 current_dallas_weather = ""
 current_houston_weather = ""
-
 
 #getting weather status to determine the image we use 
 if aus.find_bad_weather() == True:
@@ -39,7 +37,6 @@ if hou.find_bad_weather() == True:
 else:
     current_houston_weather = "cloud"
 
-
 #routes to the image
 aus_img = "/static/images/" + current_austin_weather + ".png"
 dal_img = "/static/images/" + current_dallas_weather + ".png"
@@ -53,31 +50,26 @@ rec_email = ["burnham.will2020@gmail.com", "nmgiacomello@gmail.com"]
 pw = "2FC018z69420!"
 
 #send email when find_bad_weather = true
-def send():
-    
+def send():   
     global current_austin_weather
     global current_dallas_weather
     global current_houston_weather
     global aus_img
     global dal_img
-    global hou_img
-    
+    global hou_img    
     #starting smtp server
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login(send_email, pw)
-    
+    server.login(send_email, pw)   
     #constructing email body
     message = "It's going to rain tomorrow in "
-    cities = []
-    
+    cities = []    
     #resetting values in each weather column
     current_austin_weather = ""
     current_dallas_weather = ""
     current_houston_weather = ""
     for city in city_list:
-        if city.find_bad_weather() == True:
-            
+        if city.find_bad_weather() == True:         
             #detailing weather at each city so I can apply the appropriate weather icon
             if (city.name == 'Austin'):
                 current_austin_weather = "rain"
@@ -104,7 +96,6 @@ def send():
     message += str(cities)
     message += ". Give Jackson his medicine if you will be either of these places tomorrow."
     
-    
     #reloading image names so they will update dynamically
     aus_img = "/static/images/" + current_austin_weather + ".png"
     dal_img = "/static/images/" + current_dallas_weather + ".png"
@@ -112,7 +103,6 @@ def send():
     
     #sending the email
     server.sendmail(send_email, rec_email, message)
-
 
 #setting up database connection
 def connectToDB():
@@ -123,7 +113,6 @@ def connectToDB():
     database = "ardit700_pm1database"
     )
     return con
-
 
 def get_content(state, city):
     url = "https://www.trulia.com/" + state + "/" + city

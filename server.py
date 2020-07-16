@@ -125,34 +125,27 @@ def connectToDB():
     return con
 
 
-#scraping page data from website
 def get_content(state, city):
     url = "https://www.trulia.com/" + state + "/" + city
     req = requests.get(url, headers={'User-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0'})
     content = req.content
     soup = BeautifulSoup(content, 'html.parser')
-    all_property_data = soup.find_all("div", {"class":"Box-sc-8ox7qa-0 jDcCbK PropertyCard__PropertyCardContainer-sc-1ush98q-2 hQvvnw"})
+    all_property_data = soup.find_all("div", {"class":"Box-sc-8ox7qa-0 jDcCbK"})
     return all_property_data
-    
 
 #creating excel workbook
 def start_workbook():
     return xlsxwriter.Workbook('real_estate.xlsx')
 
-
 #creating a worksheet from the workbook
-def create_worksheet(workbook):
-    
+def create_worksheet(workbook):  
     worksheet = workbook.add_worksheet()
-    
     worksheet.write('A1', 'Price')
     worksheet.write('B1', 'Beds')
     worksheet.write('C1', 'Bath')
     worksheet.write('D1', 'Address')
     worksheet.write('E1', 'Region')
-    
     return worksheet
-
 
 #grabbing each individual element from the webpage for each property
 def fill_data(all_property_data, worksheet):
@@ -198,97 +191,76 @@ def fill_data(all_property_data, worksheet):
         worksheet.write(''.join(row_d), property_address)
         worksheet.write(''.join(row_e), property_region)
     
-
 #starting background task scheduler to pull weather data behind the scenes
 sched = BackgroundScheduler(daemon=True)
 sched.add_job(send,'cron',minute = '30', hour = '20')
 sched.start()
 
-
 #creating application object
 app = Flask(__name__)
-
 
 #setting up home route
 @app.route('/')
 def home():
     return render_template("index.html")
 
-
 #route to projects page
 @app.route('/projects/')
 def projects():
     return render_template("projects.html", austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
-
 
 #route to resume
 @app.route('/resume/') 
 def resume():
     return redirect("/static/Will Burnham Official Engineering Resume 1.pdf") 
 
-
 #route to spreadsheet
 @app.route('/spreadsheet/', methods=['POST'])
-def spreadsheet():
-    
+def spreadsheet():   
     city = request.form['city']
     state = request.form['category']
-    
     workbook = start_workbook()
     worksheet = create_worksheet(workbook)
     content = get_content(state, city)
     fill_data(content, worksheet)
     workbook.close()
-    
     #reading the excel doc with panda's and turning it into an html page for in browser readability
     df = pd.read_excel("real_estate.xlsx")
     xl = df.to_html()
-    
     return xl
-
 
 #route for data submitted through form
 @app.route('/projects/', methods=['POST'])
-def handle_data():    
-    
+def handle_data():       
     #getting word from form
     word = request.form['message']
-    word = word.lower()
-    
+    word = word.lower()    
     #output when no definitions are found
-    no_search_results = "Please enter a valid word."
-    
+    no_search_results = "Please enter a valid word."    
     #connection to db
     con = connectToDB()
-    cursor = con.cursor()
-    
+    cursor = con.cursor()    
     #input validation
     for char in word:
         if (char.isalpha() == False):
             arr = []
             arr.append(no_search_results)
-            return render_template("projects.html", my_list = arr, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
-            
+            return render_template("projects.html", my_list = arr, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)           
     #constructing query and fetching results
     query = cursor.execute("SELECT Definition FROM Dictionary WHERE Expression = '%s'" % word)
-    results = cursor.fetchall()
-    
+    results = cursor.fetchall()    
     #if there are results pass up to 3 definitions then close connection
     if results:
         arr = []
         for result in results:
-            arr.append(result[0])
-        
+            arr.append(result[0])        
         con.close()
-        return render_template("projects.html", my_list = arr, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
-       
-           
+        return render_template("projects.html", my_list = arr, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)                  
     else:
         arr = []
         arr.append(no_search_results)
         con.close()
         return render_template("projects.html", my_list = arr, austin_image = aus_img, dallas_image = dal_img, houston_image = hou_img)
-
           
 if __name__ == "__main__":
     app.run(debug=False)

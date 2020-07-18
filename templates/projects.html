@@ -6,6 +6,19 @@
 		<meta http-equiv="refresh" content="60">
 		<title>Projects</title>
 		<link rel="stylesheet" href="{{url_for('static',filename='main.css')}}" />
+		<style>
+    		.overlay-container img {
+        		width:50%;
+        		height:50%;
+    		}
+    		.overlay-container img:hover {
+        		width:55%;
+        		height:55%;
+        		transition: all 0.3s linear;
+        		box-shadow: 1px 1px 5px darkgray;
+        		cursor: pointer;
+    		}
+		</style>
 	</head>
 	<body>
 
@@ -30,79 +43,22 @@
 				<div class="container">
 
 					<header class="major special">
-						<h2>Real Estate Data Collector</h2>
-						<p style="text-transform:lowercase;">
-						<span style="text-transform:uppercase;">T</span>his is a web scraping application that accesses 
-						<span style="text-transform:uppercase;">T</span>rulia.com for real estate data in the city and state the user chooses.
-						<span style="text-transform:uppercase;">I</span>t takes the values submitted through the form, searches 
-						<span style="text-transform:uppercase;">T</span>rulia for property data in the given city/state, and then compiles it into a spreadsheet.
+						<h2>Github Landing Page</h2>
+						<p style="text-transform:none;">
+						Created a landing page using React.js, Chart.js, and Bootstrap to provide a more concise and in depth view of my developer profile. 
+						The website pulls all of the data presented from the Github API. 
+						Provides data visualizations of all repositories, languages used, and level of familiarity with each language and technology used.
 						</p>
-						<form method="post" action="/spreadsheet/">
-    						<div class="12u$" style="margin-bottom:30px; margin-top:20px;">
-        						<textarea style="resize: none;"name="city" id="city" placeholder="Enter a city..." rows="1"></textarea>
-        					</div>
-    						<div class="12u$" style="padding-bottom:30px;">
-								<div class="select-wrapper">
-									<select name="category" id="category">
-										<option value="">- Category -</option>
-										<option value="al">Alabama</option>
-										<option value="ak">Alaska</option>
-										<option value="az">Arizona</option>
-										<option value="ar">Arkansas</option>
-										<option value="ca">California</option>
-										<option value="co">Colorado</option>
-										<option value="ct">Connecticut</option>
-										<option value="de">Delaware</option>
-										<option value="fl">Florida</option>
-										<option value="ga">Georgia</option>
-										<option value="hi">Hawaii</option>
-										<option value="id">Idaho</option>
-										<option value="il">Illinois</option>
-										<option value="in">Indiana</option>
-										<option value="ia">Iowa</option>
-										<option value="ks">Kansas</option>
-										<option value="ky">Kentucky</option>
-										<option value="la">Louisiana</option>
-										<option value="me">Maine</option>
-										<option value="md">Maryland</option>
-										<option value="ma">Massachussetts</option>
-										<option value="mi">Michigan</option>
-										<option value="mn">Minnesota</option>
-										<option value="ms">Mississippi</option>
-										<option value="mo">Missouri</option>
-										<option value="mt">Montanna</option>
-										<option value="ne">Nebraska</option>
-										<option value="nv">Nevada</option>
-										<option value="nh">New Hampshire</option>
-										<option value="nj">New Jersey</option>
-										<option value="nm">New Mexico</option>
-										<option value="ny">New York</option>
-										<option value="nc">North Carolina</option>
-										<option value="nd">North Dakota</option>
-										<option value="oh">Ohio</option>
-										<option value="ok">Oklahoma</option>
-										<option value="or">Oregon</option>
-										<option value="pa">Pennsylvania</option>
-										<option value="ri">Rhode Island</option>
-										<option value="sc">South Carolina</option>
-										<option value="tn">Tennessee</option>
-										<option value="tx">Texas</option>
-										<option value="ut">Utah</option>
-										<option value="vt">Vermont</option>
-										<option value="va">Virginia</option>
-										<option value="wa">Washington</option>
-										<option value="wv">West Virginia</option>
-										<option value="wi">Wisconson</option>
-										<option value="wy">Wyoming</option>
-									</select>
-								</div>
-								</div>
-        					<div class="12u$">
-        						<ul class="actions">
-        							<li><input type="submit" value="View" class="special" /></li>
-        						</ul>
-        					</div>	
-        				</form>
+						<div class="12u$">
+    						<center>
+        						<div class="overlay-container">
+            						<a href="https://wburnham.netlify.app" target="_blank">
+                						<img src="../static/images/github-app-ss.jpg" alt="">
+                					</a>
+            					</div>
+        					</center>
+    					</div>
+						
 					</header>
                 
 				</div>
@@ -111,15 +67,15 @@
 
 					<header class="major special">
 						<h2>Weather Reminder App</h2>
-						<p style="text-transform:lowercase;">
-						<span style="text-transform:uppercase;">T</span>his project uses the 
-						<span style="text-transform:uppercase;">O</span>pen <span style="text-transform:uppercase;">W</span>eather 
-						<span style="text-transform:uppercase;">M</span>ap <span style="text-transform:uppercase;">API.</span> 
-						<span style="text-transform:uppercase;">I</span>t fetches the next day's weather data and searches for trigger words that would indicate bad weather. 
-						<span style="text-transform:uppercase;">W</span>hen bad weather is detected, it sends me an email notifying me of bad weather in either
-						<span style="text-transform:uppercase;">A</span>ustin,  <span style="text-transform:uppercase;">D</span>allas, 
-						<span style="text-transform:uppercase;">H</span>ouston, or any combination of the three. 
-						<span style="text-transform:uppercase;">O</span>n the front end, the images below change dynamically dependent on the current state of the weather.
+						<p style="text-transform:none;">
+						This project uses the 
+						Open Weather 
+						Map API.
+						It fetches the next day's weather data and searches for trigger words that would indicate bad weather. 
+						When bad weather is detected, it sends me an email notifying me of bad weather in either
+						Austin, Dallas, 
+						Houston, or any combination of the three. 
+						On the front end, the images below change dynamically dependent on the current state of the weather.
 						</p>
 					</header>
 
@@ -146,9 +102,10 @@
 				<div class="container" id="dict">
                     <header class="major special">
 						<h2>Dictionary App</h2>
-						<p style="text-transform:lowercase;"><span style="text-transform:uppercase;">M</span>y introduction into web development. 
-						<span style="text-transform:uppercase;">t</span>his app queries a my<span style="text-transform:uppercase;">SQL</span> database on the
-						backend and returns the definition of the search to the front end if a definition exists.</p>
+						<p style="text-transform:none;">
+						This app queries a mySQL database on the
+						backend and returns the definition of the search to the front end if a definition exists.
+						</p>
 						<section style="margin-top:30px;">
     						<form method="post" action="/projects/#dict">
     							<div class="row uniform 50%">
@@ -164,9 +121,9 @@
     						</form>
     					</section>
     					<ul class="alt" style="list-style-type: none;">
-    						<li>{{value}}</li>
-    						<li>{{value2}}</li>
-    						<li>{{value3}}</li>
+        					{% for result in results %}
+            					<li>{{result[0]}}</li>
+        					{% endfor %}
         				</ul>	
 					</header>				
                     
@@ -177,8 +134,8 @@
 			<footer id="footer">
 				<div class="container">
     				<ul class="icons">
-						<li><a href="https://www.github.com/WillBurnham" target="_blank" class="icon"><img src="/static/images/github32.png" alt="" /></a></li>
-						<li><a href="https://www.linkedin.com/in/will-burnham-405402140/" target="_blank" class="icon"><img src="/static/images/linkedin01.png" alt="" width="40" height="35"/></a></li>
+						<li><a href="https://www.linkedin.com/in/will-burnham-405402140/" title="Linkedin &rarr; https://www.linkedin.com/in/will-burnham-405402140/" rel="noopener" target="_blank"><i class="fa fa-linkedin"></i> Linkedin</a></li>
+						<li><a href="https://github.com/WillBurnham" title="Github &rarr; https://github.com/WillBurnham" rel="noopener" target="_blank"><i class="fa fa-github"></i> Github</a></li>
 					</ul>
 					<ul class="copyright">
 						<li>Built by: Will Burnham</li>
